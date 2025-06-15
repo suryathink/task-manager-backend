@@ -22,12 +22,12 @@ export const signup = async (req: Request, res: Response) => {
 export const login = async (req: Request, res: Response) => {
   try {
     const { email, password } = req.body;
-    const user = await loginUser(email, password);
+    const token = await loginUser(email, password);
     res
       .status(httpStatus.OK)
       .json({
         message: "Login successful",
-       data: user,
+        token,
       });
   } catch (err: any) {
     logApiError(req, err);
