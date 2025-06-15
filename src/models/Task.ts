@@ -19,6 +19,9 @@ export class Task {
   @Column({ nullable: true })
   description: string;
 
+  @Column({ nullable: true, type: 'timestamp' })
+  dueDate?: Date;
+
   @Column({ default: false })
   completed: boolean;
 
