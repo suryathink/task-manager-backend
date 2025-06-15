@@ -14,7 +14,7 @@ export function logRequests(req: Request, res: Response, next: NextFunction) {
     params,
   };
 
-  const excludedRoutes = ["/auth/login", "/auth/signup","/users"];
+  const excludedRoutes = ["/auth/login", "/auth/signup","/users/me"];
   if (excludedRoutes.includes(req.path)) {
     logMessage.body = "";
     logMessage.query = {};
