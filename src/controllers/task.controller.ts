@@ -10,8 +10,9 @@ import { AuthRequest } from '../middlewares/auth';
 import { logApiError } from '../helpers/logApiError';
 import httpStatus from "http-status"
 
-export const createTask = async (req: AuthRequest, res: Response, next: NextFunction) => {
+export const createTask = async (req: AuthRequest, res: Response) => {
   try {
+    console.log(req.body)
     const { error, value } = createTaskSchema.validate(req.body);
     if (error) return res.status(400).json({ error: error.details[0].message });
 
@@ -23,7 +24,7 @@ export const createTask = async (req: AuthRequest, res: Response, next: NextFunc
   }
 };
 
-export const getTasks = async (req: AuthRequest, res: Response, next: NextFunction) => {
+export const getTasks = async (req: AuthRequest, res: Response) => {
   try {
     const { error, value } = paginationQuerySchema.validate(req.query);
     if (error) return res.status(400).json({ error: error.details[0].message });
@@ -36,7 +37,7 @@ export const getTasks = async (req: AuthRequest, res: Response, next: NextFuncti
   }
 };
 
-export const getTaskById = async (req: AuthRequest, res: Response, next: NextFunction) => {
+export const getTaskById = async (req: AuthRequest, res: Response) => {
   try {
     const task = await taskService.getTaskById(req.user.id, req.params.id);
     res.status(httpStatus.OK).json(task);
@@ -46,7 +47,7 @@ export const getTaskById = async (req: AuthRequest, res: Response, next: NextFun
   }
 };
 
-export const updateTask = async (req: AuthRequest, res: Response, next: NextFunction) => {
+export const updateTask = async (req: AuthRequest, res: Response) => {
   try {
     const { error, value } = updateTaskSchema.validate(req.body);
     if (error) return res.status(httpStatus.BAD_REQUEST).json({ error: error.details[0].message });
@@ -59,7 +60,7 @@ export const updateTask = async (req: AuthRequest, res: Response, next: NextFunc
   }
 };
 
-export const markTaskComplete = async (req: AuthRequest, res: Response, next: NextFunction) => {
+export const markTaskComplete = async (req: AuthRequest, res: Response) => {
   try {
     const { error } = completeTaskSchema.validate(req.body);
     if (error) return res.status(httpStatus.BAD_REQUEST).json({ error: error.details[0].message });
@@ -72,10 +73,10 @@ export const markTaskComplete = async (req: AuthRequest, res: Response, next: Ne
   }
 };
 
-export const deleteTask = async (req: AuthRequest, res: Response, next: NextFunction) => {
+export const deleteTask = async (req: AuthRequest, res: Response) => {
   try {
     await taskService.deleteTask(req.user.id, req.params.id);
-    res.status(httpStatus.NO_CONTENT).send();
+    res.status(httpStatus.ACCEPTED).json({message:"Task deleted successfully"});
   } catch (err:any) {
     logApiError(req, err);
     res.status(httpStatus.INTERNAL_SERVER_ERROR).json({ error: err.message });

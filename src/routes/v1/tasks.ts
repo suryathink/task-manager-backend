@@ -1,5 +1,3 @@
-import express from "express";
-// import { UserController } from "../../controllers/user.controller";
 
 import { Router } from 'express';
 import {
@@ -14,12 +12,12 @@ import  {authenticate, AuthRequest} from '../../middlewares/auth';
 
 const router = Router();
 
-router.post('/', authenticate as unknown as AuthRequest, createTask); // Create new task
-router.get('/', authenticate, getTasks); // List tasks (with filters & pagination)
-router.get('/:id', authenticate, getTaskById); // Get task by ID
-router.put('/:id', authenticate, updateTask); // Update task
-router.patch('/:id/complete', authenticate, markTaskComplete); // Mark task complete
-router.delete('/:id', authenticate, deleteTask); // Delete task
+router.post('/', authenticate as any, createTask as any); 
+router.get('/', authenticate as any, getTasks as any); 
+router.get('/:id', authenticate as any, getTaskById as any); 
+router.put('/:id', authenticate as any, updateTask as any);
+router.patch('/:id/complete', authenticate as any, markTaskComplete as any); 
+router.delete('/:id', authenticate as any, deleteTask); 
 
 
 

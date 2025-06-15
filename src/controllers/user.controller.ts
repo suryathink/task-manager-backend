@@ -30,6 +30,7 @@ export const login = async (req: Request, res: Response) => {
         message: "Login successful",
         token,
       });
+      return
   } catch (err: any) {
     logApiError(req, err);
     res.status(httpStatus.UNAUTHORIZED).json({ error: err.message });
