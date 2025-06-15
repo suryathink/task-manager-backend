@@ -36,3 +36,14 @@ export const loginUser = async (email: string, password: string) => {
 
   return token ;
 };
+
+
+export const getUserProfile = async (userId: string): Promise<Omit<User, 'password'> | null> => {
+  const userRepository = AppDataSource.getRepository(User);
+  const user = await userRepository.findOneBy({ id: userId });
+
+  if (!user) return null;
+
+  const { password, ...safeUser } = user;
+  return safeUser;
+};

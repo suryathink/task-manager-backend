@@ -1,7 +1,8 @@
 import { Request, Response } from "express";
 import httpStatus from "http-status";
 import { logApiError } from "../helpers/logApiError";
-import { loginUser, registerUser } from "../services/user.service";
+import { loginUser, registerUser, getUserProfile} from "../services/user.service";
+import { AuthRequest } from '../middlewares/auth';
 
 export const signup = async (req: Request, res: Response) => {
   try {
@@ -32,5 +33,20 @@ export const login = async (req: Request, res: Response) => {
   } catch (err: any) {
     logApiError(req, err);
     res.status(httpStatus.UNAUTHORIZED).json({ error: err.message });
+  }
+};
+
+
+export const getProfile = async (req: AuthRequest, res: Response) => {
+  try {
+    const user = await getUserProfile(req.user.id);
+
+    if (!user) {
+      return res.status(httpStatus.NOT_FOUND).json({ message: 'User not found' });
+    }
+    return res.status(httpStatus.OK).json(user);
+  } catch (err:any) {
+    logApiError(req, err);
+    return res.status(httpStatus.INTERNAL_SERVER_ERROR).json({ message: 'Error fetching profile' });
   }
 };
