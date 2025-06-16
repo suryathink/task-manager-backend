@@ -142,3 +142,8 @@ All task routes are grouped under `/tasks` and are **JWT-protected** using a cen
 You can test all APIs via the Postman collection below:
 
 👉 [Open Postman Collection](https://.postman.co/workspace/My-Workspace~6a545882-6325-4a2d-8e06-d19d171c2213/collection/26565778-3fbdb9d6-5fa1-4e0c-b6aa-9575e21d2d31?action=share&creator=26565778&active-environment=26565778-f794d117-6daf-4da7-8472-6a838274b9b5)
+
+
+
+![image](https://github.com/user-attachments/assets/67a29fa1-95f9-40ac-948d-0716fd607fe8)
+
